@@ -7,6 +7,9 @@ from auth import auth_bp
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from views import UserAdmin, VehicleAdmin, TowingCompanyAdmin, PaymentAdmin, PleadQueryAdmin, VehicleRetrievalAdmin, ReceiptAdmin
+import os
+import json
+import stripe
 
 
 
@@ -36,6 +39,9 @@ db.init_app(app)
 
 
 
+
+
+
 # Add your ModelView subclasses to the admin interface
 admin.add_view(UserAdmin(User, db.session, name='user_admin_view'))
 admin.add_view(VehicleAdmin(Vehicle, db.session, name='vehicle_admin_view'))
@@ -54,10 +60,42 @@ app.register_blueprint(auth_bp, url_prefix= '/auth')
 
 
 #this is for getting api started
+
+
 @app.route('/')
 def dashboard():
     return f'This is the dashboard'
 
+
+@app.route('/create-payment-intent', methods=['POST'])
+def create_payment():
+        try:
+            # Setup env vars beforehand 
+            stripe_keys = {
+                "secret_key": os.environ["sk_test_51OuFkfLfXYb8O5xh0JEUwlysTBwtd5cBz4oTxR9IrzgjHovygBG25GR5Do7fOION5UmhJTOk5A22Bz9KyRxOl7tW00tacN7dXk"],
+                "publishable_key": os.environ["pk_test_51OuFkfLfXYb8O5xh9u2che20BocuVX9YwXr8Md67qGHKlpheVF15Gzj7GPyh9UJw3qOE7QxObA3b88A7C4jVuA2l00QGHLVVZG"],
+            }
+
+            stripe.api_key = stripe_keys["secret_key"]
+            data = json.loads(request.data)
+            intent = stripe.PaymentIntent.create(
+                amount=2000,
+                currency='eur',
+                automatic_payment_methods={
+                    'enabled': True,
+                },
+                # Again, I am providing a user_uuid, so I can identify who is making the payment later
+                metadata={
+                    'customer': data['customer']
+                },
+            )
+
+            return ({
+                'clientSecret': intent['client_secret']
+            })
+
+        except Exception as e:
+            return jsonify(error=str(e)), 403
 
 @app.route('/vehicles', methods=['GET'])
 
