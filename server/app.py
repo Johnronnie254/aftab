@@ -19,7 +19,11 @@ from models import db, User, Vehicle, TowingCompany, Payment,PleadQuery, Vehicle
 
 app = Flask(__name__)
 
+from dotenv import load_dotenv
+load_dotenv()
 
+# Initialize Stripe with your secret key
+stripe.api_key = os.getenv("sk_test_51OuFkfLfXYb8O5xh0JEUwlysTBwtd5cBz4oTxR9IrzgjHovygBG25GR5Do7fOION5UmhJTOk5A22Bz9KyRxOl7tW00tacN7dXk")
 
 app.config.from_prefixed_env()
 
@@ -67,36 +71,40 @@ def dashboard():
     return f'This is the dashboard'
 
 
-@app.route('/create-payment-intent', methods=['POST'])
-def create_payment():
-        try:
-            # Setup env vars beforehand 
-            stripe_keys = {
-                "secret_key": os.environ["sk_test_51OuFkfLfXYb8O5xh0JEUwlysTBwtd5cBz4oTxR9IrzgjHovygBG25GR5Do7fOION5UmhJTOk5A22Bz9KyRxOl7tW00tacN7dXk"],
-                "publishable_key": os.environ["pk_test_51OuFkfLfXYb8O5xh9u2che20BocuVX9YwXr8Md67qGHKlpheVF15Gzj7GPyh9UJw3qOE7QxObA3b88A7C4jVuA2l00QGHLVVZG"],
-            }
+@app.route("/payment", methods=["POST"])
+def handle_payment():
+    data = request.get_json()
+    amount = data["amount"]
+    payment_method_id = data["id"]
 
-            stripe.api_key = stripe_keys["secret_key"]
-            data = json.loads(request.data)
-            intent = stripe.PaymentIntent.create(
-                amount=2000,
-                currency='eur',
-                automatic_payment_methods={
-                    'enabled': True,
-                },
-                # Again, I am providing a user_uuid, so I can identify who is making the payment later
-                metadata={
-                    'customer': data['customer']
-                },
-            )
-
-            return ({
-                'clientSecret': intent['client_secret']
-            })
-
-        except Exception as e:
-            return jsonify(error=str(e)), 403
-
+    try:
+        # Create a payment intent using Stripe
+        payment_intent = stripe.PaymentIntent.create(
+            amount=amount,
+            currency="usd",
+            payment_method=payment_method_id,
+            confirm=True,
+            description="Vehicle Towing"
+        )
+        print("Payment", payment_intent)
+        return jsonify({
+            "message": "Payment successful",
+            "success": True
+        }), 200
+    except stripe.error.CardError as e:
+        # Handle card errors
+        return jsonify({
+            "message": "Payment failed: " + str(e),
+            "success": False
+        }), 400
+    except Exception as e:
+        # Handle other errors
+        print("Error", e)
+        return jsonify({
+            "message": "Payment failed: " + str(e),
+            "success": False
+        }), 500
+    
 @app.route('/vehicles', methods=['GET'])
 
 #getting all vehicles in user dashboard
@@ -118,7 +126,6 @@ def vehicles():
     return jsonify(vehicles_dict), 200
 
 
-
 @app.route('/pleadquery', methods=['POST'])
 
 #user posting query
@@ -129,12 +136,14 @@ def create_plead_query():
     comment = data.get('comment')
     date = data.get('date')
     vehicle_id = data.get('vehicle_id')
+    email = data.get('email')
     
     new_plead_query = PleadQuery(
         query=query,
         comment=comment,
         date=datetime.now(),
-        vehicle_id=vehicle_id
+        vehicle_id=vehicle_id,
+        email= email
     )
     db.session.add(new_plead_query)
     db.session.commit()

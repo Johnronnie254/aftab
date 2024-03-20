@@ -19,7 +19,7 @@ function NavBar() {
             <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/search">Search</Nav.Link>
             <Nav.Link href="/query">Query</Nav.Link>
-            <Nav.Link href="/payment">Payment</Nav.Link>
+           
             </Nav>
             ): (
             <Nav className="me-auto">

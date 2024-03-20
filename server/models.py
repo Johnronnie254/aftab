@@ -84,6 +84,8 @@ class PleadQuery(db.Model):
     comment = db.Column(db.String, nullable=False)
     date = db.Column(db.Integer, nullable=False)
     vehicle_id = db.Column(db.Integer, db.ForeignKey('vehicles.id')) 
+    email = db.Column(db.String, nullable=False, default='')
+
 
     vehicle = db.relationship('Vehicle', backref='plead_queries')
 

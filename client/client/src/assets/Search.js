@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Container} from 'react-bootstrap';
 import './search.css'
+import PaymentPage from './PaymentPage'
 
 function Search() {
   const [vehicles, setVehicles] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showItem, setShowItem] = useState(false);
 
   useEffect(() => {
     fetch("http://127.0.0.1:5000/vehicles")
@@ -63,6 +65,21 @@ function Search() {
           </tbody>
         </table>
       </div>
+
+      <div className='App'>
+			  <h1>Vehicle Payment</h1>
+        <p>Proceed to make payment. After payment, you will be able to retrieve your vehicle</p>
+			    {showItem ? (
+				<PaymentPage/>
+			) : (
+				<>
+					<h3>Pay the fine amount</h3>
+					<img src= 'https://etimg.etb2bimg.com/photo/89992099.cms' alt='Vehicle' />
+					<button onClick={() => setShowItem(true)}>Make  Payment</button>
+				</>
+			)}
+		</div>
+	
     </Container>
   );
 }

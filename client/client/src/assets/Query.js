@@ -6,7 +6,8 @@ function Query() {
         query: '',
         comment: '',
         date: '',
-        vehicle_id: ''
+        vehicle_id: '',
+        email: ''
     });
 
     const handleInput = (e) => {
@@ -22,7 +23,8 @@ function Query() {
         query: query.query,
         comment: query.comment,
         date: query.date,
-        vehicle_id: query.vehicle_id
+        vehicle_id: query.vehicle_id,
+        email: query.email
     };
         fetch("http://127.0.0.1:5000/pleadquery", {
             method: "POST",
@@ -37,7 +39,8 @@ function Query() {
             query: '',
             comment: '',
             date: '',
-            vehicle_id: ''
+            vehicle_id: '',
+            email: ''
         })
         alert("Query created successfully!");
     }
@@ -68,6 +71,9 @@ function Query() {
                     </Col>
                     <Col>
                         <Form.Control type="text" placeholder="Vehicle ID" name="vehicle_id" value={query.vehicle_id} onChange={handleInput} />
+                    </Col>
+                    <Col>
+                        <Form.Control type="email" placeholder="email" name="email" value={query.email} onChange={handleInput} />
                     </Col>
                 </Row>
                 <Button variant="primary" type="submit" onClick = {handleNewPleadQuery}>Submit</Button>
