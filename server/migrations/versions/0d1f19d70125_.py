@@ -1,8 +1,8 @@
-"""Create Receipt model
+"""empty message
 
-Revision ID: c62c2acaa549
+Revision ID: 0d1f19d70125
 Revises: 
-Create Date: 2024-03-04 16:20:05.849358
+Create Date: 2024-03-20 13:39:12.100944
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c62c2acaa549'
+revision = '0d1f19d70125'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -61,6 +61,7 @@ def upgrade():
     sa.Column('comment', sa.String(), nullable=False),
     sa.Column('date', sa.Integer(), nullable=False),
     sa.Column('vehicle_id', sa.Integer(), nullable=True),
+    sa.Column('email', sa.String(), nullable=False),
     sa.ForeignKeyConstraint(['vehicle_id'], ['vehicles.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

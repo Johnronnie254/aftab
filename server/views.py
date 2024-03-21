@@ -22,9 +22,9 @@ class PaymentAdmin(ModelView):
     column_filters = ('payment_status', 'payment_date', 'amount', 'user.username', 'vehicle.plate_number')
 
 class PleadQueryAdmin(ModelView):
-    column_list = ('query', 'comment', 'date', 'vehicle')
-    column_labels = {'query': 'Query', 'comment': 'Comment', 'date': 'Date', 'vehicle': 'Vehicle'}
-    column_filters = ('query', 'comment', 'date', 'vehicle.plate_number')
+    column_list = ('query', 'comment', 'date', 'vehicle', 'email')
+    column_labels = {'query': 'Query', 'comment': 'Comment', 'date': 'Date', 'vehicle': 'Vehicle', 'email': 'email'}
+    column_filters = ('query', 'comment', 'date', 'vehicle.plate_number', 'email')
 
 class VehicleRetrievalAdmin(ModelView):
     column_list = ('retrieval_date', 'retrieval_status', 'user', 'vehicle')

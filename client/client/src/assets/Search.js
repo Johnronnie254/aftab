@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Container} from 'react-bootstrap';
 import './search.css'
 import PaymentPage from './PaymentPage'
+import Button from 'react-bootstrap/Button';
 
 function Search() {
   const [vehicles, setVehicles] = useState([]);
@@ -75,7 +76,8 @@ function Search() {
 				<>
 					<h3>Pay the fine amount</h3>
 					<img src= 'https://etimg.etb2bimg.com/photo/89992099.cms' alt='Vehicle' />
-					<button onClick={() => setShowItem(true)}>Make  Payment</button>
+					
+          <Button variant="primary" onClick={() => setShowItem(true)}>Make Payment</Button>{' '}
 				</>
 			)}
 		</div>
