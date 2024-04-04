@@ -48,7 +48,8 @@ function Search() {
               <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #333' }}>Location</th>
               <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #333' }}>Date of Towing</th>
               <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #333' }}>Fine Amount</th>
-              <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #333' }}>Towing ID</th>
+              <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #333' }}>Towing Company</th>
+              <th style={{ padding: '12px', textAlign: 'left', borderBottom: '2px solid #333' }}>Email</th>
             </tr>
           </thead>
           <tbody>
@@ -60,7 +61,8 @@ function Search() {
                 <td style={{ padding: '12px', borderBottom: '1px solid #ddd' }}>{vehicle.location}</td>
                 <td style={{ padding: '12px', borderBottom: '1px solid #ddd' }}>{vehicle.date_of_towing}</td>
                 <td style={{ padding: '12px', borderBottom: '1px solid #ddd' }}>{vehicle.fine_amount}</td>
-                <td style={{ padding: '12px', borderBottom: '1px solid #ddd' }}>{vehicle.towing_id}</td>
+                <td style={{ padding: '12px', borderBottom: '1px solid #ddd' }}>{vehicle.towing_company}</td>
+                <td style={{ padding: '12px', borderBottom: '1px solid #ddd' }}>{vehicle.towing_email}</td>
               </tr>
             ))}
           </tbody>

@@ -42,7 +42,8 @@ class Vehicle(db.Model):
     location = db.Column(db.String, nullable=False)
     date_of_towing = db.Column(db.String, nullable=False)
     fine_amount = db.Column(db.Integer, nullable=False)
-    towing_id = db.Column(db.Integer, nullable=False)
+    towing_name = db.Column(db.String, nullable=False)
+    towing_email = db.Column(db.String, nullable=False)
 
     towing_company_id = db.Column(db.Integer, db.ForeignKey('towingcompanies.id'))  # Changed to 'towingcompanies.id'
 
