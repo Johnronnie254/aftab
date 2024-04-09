@@ -7,9 +7,9 @@ class UserAdmin(ModelView):
     column_filters = ('username', 'email')
 
 class VehicleAdmin(ModelView):
-    column_list = ('plate_number', 'reason_towing', 'location', 'date_of_towing', 'fine_amount', 'towing_company_id') # Removed 'towing_id'
-    column_labels = {'plate_number': 'Plate Number', 'reason_towing': 'Reason for Towing', 'location': 'Location', 'date_of_towing': 'Date of Towing', 'fine_amount': 'Fine Amount', 'towing_company_id': 'Towing Company_id'}
-    column_filters = ('plate_number', 'reason_towing', 'location', 'date_of_towing', 'fine_amount', 'towing_company_id')
+    column_list = ('plate_number', 'reason_towing', 'location', 'date_of_towing', 'fine_amount', 'towing_company', 'towing_email') # Removed 'towing_id'
+    column_labels = {'plate_number': 'Plate Number', 'reason_towing': 'Reason for Towing', 'location': 'Location', 'date_of_towing': 'Date of Towing', 'fine_amount': 'Fine Amount', 'towing_company': 'Towing Company', 'towing_email': 'Towing Email'}
+    column_filters = ('plate_number', 'reason_towing', 'location', 'date_of_towing', 'fine_amount', 'towing_company', 'towing_email')
 
 class TowingCompanyAdmin(ModelView):
     column_list = ('company_name', 'email', 'phone_number')
@@ -36,5 +36,5 @@ class ReceiptAdmin(ModelView):
     column_labels = {'receipt_id': 'Receipt ID', 'payment_details': 'Payment Details', 'date': 'Date', 'vehicle': 'Vehicle', 'towing_company': 'Towing Company', 'user': 'User'}
     column_filters = ('receipt_id', 'payment_details', 'date', 'vehicle.plate_number', 'towing_company.company_name', 'user.username')
 
-# Add your ModelView subclasses to the admin interface
+
 

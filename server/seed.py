@@ -22,7 +22,8 @@ def seed():
             location = fake.address()
             date_of_towing = fake.date_time_this_decade()
             fine_amount = random.randint(50, 500)
-            towing_id = random.randint(1, 5)
+            towing_company = random.randint(1, 5)
+            towing_email = random.randint(1,5)
             towing_company_id = random.randint(1, 5)
             vehicle = Vehicle(
                 plate_number=plate_number,
@@ -30,7 +31,8 @@ def seed():
                 location=location,
                 date_of_towing=date_of_towing,
                 fine_amount=fine_amount,
-                towing_id=towing_id,
+                towing_company=towing_company,
+                towing_email=towing_email,
                 towing_company_id=towing_company_id
             )
             db.session.add(vehicle)

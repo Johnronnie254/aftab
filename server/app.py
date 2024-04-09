@@ -118,7 +118,8 @@ def vehicles():
             'location': vehicle.location,
             'date_of_towing': vehicle.date_of_towing,
             'fine_amount': vehicle.fine_amount,
-            'towing_id': vehicle.towing_id,
+            'towing_company': vehicle.towing_company,
+            'towing_email': vehicle.towing_email,
             'towing_company_id': vehicle.towing_company_id
         }
         for vehicle in vehicles
@@ -186,7 +187,8 @@ def addVehicle():
     location = data.get('location')
     date_of_towing = data.get('date_of_towing')
     fine_amount = data.get('fine_amount')
-    towing_id = data.get('towing_id')
+    towing_company = data.get('towing_company')
+    towing_email = data.get('towing_email')
     towing_company_id = data.get('towing_company_id')
 
     new_vehicle = Vehicle(
@@ -195,7 +197,8 @@ def addVehicle():
         location = location,
         date_of_towing = datetime.now(),
         fine_amount = fine_amount,
-        towing_id = towing_id,
+        towing_company = towing_company,
+        towing_email = towing_email,
         towing_company_id = towing_company_id
     )
 
