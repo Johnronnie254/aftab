@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-//import { useHistory } from 'react-router-dom'; // Import useHistory hook from react-router-dom
 import { Button, Form, Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -9,7 +9,7 @@ function SignUp() {
     password: ''
   });
 
-  //const history = useHistory(); // Access the history object
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -47,7 +47,7 @@ function SignUp() {
         password: ''
       });
       // Redirect to login page after successful sign-up
-      //history.push("/LogIn");
+      navigate("/login");
     })
     .catch((error) => {
       console.error('There was a problem with the fetch operation:', error);
@@ -59,6 +59,7 @@ function SignUp() {
     <Container style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#dcdcdc' }}>
       <div style={{ width: '300px', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', background: 'white' }}>
         <Form onSubmit={handleSubmit}>
+          <h1 style={{ color: '#ff0000', fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>For Towing Companies Only</h1>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control type="email" name="email" value={formData.email} placeholder="Enter email" onChange={handleInput} />
@@ -83,7 +84,7 @@ function SignUp() {
           
         </Form>
         <div style={{ marginTop: '10px', textAlign: 'center' }}>
-          <p>Already have an account? <a href="/LogIn">Login</a></p>
+          <p>Already have an account? <a href="/login">Login</a></p>
         </div>
       </div>
     </Container>

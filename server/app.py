@@ -126,21 +126,21 @@ def vehicles():
     ]
     return jsonify(vehicles_dict), 200
 
-@app.route ('/addvehicle', methods = ['POST'])
+@app.route ('/addvehiclecompany', methods = ['POST'])
 
-def addVehicle():
+def addVehicleCompany():
     data = request.json
-    vehicle_id = data.get('vehicle_id')
+    id = data.get('id')
     plate_number = data.get('plate_number')
     reason_towing = data.get('reason_towing')
     location = data.get('location')
-    date_of-towing = data.get('date_of_towing')
+    date_of_towing = data.get('date_of_towing')
     fine_amount= data.get('fine_amount')
     towing_company = data.get('towing_company')
     towing_email = data.get('towing_email')
 
     new_vehicle = Vehicle(
-        vehicle_id  = vehicle_id,
+        id  = id,
         plate_number = plate_number,
         reason_towing = reason_towing,
         location = location,
@@ -153,7 +153,7 @@ def addVehicle():
     db.session.add(new_vehicle)
     db.session.commit()
 
-     return jsonify({'message': 'New vehicle created successfully'}), 201
+    return jsonify({'message': 'New vehicle created successfully'}), 201
 
 
 @app.route('/pleadquery', methods=['POST'])

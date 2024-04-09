@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Container } from 'react-bootstrap';
-import SignUp from './SignUp'; // Import SignUp component
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Cookies from 'js-cookie';
 
 function LogIn() {
@@ -8,6 +8,7 @@ function LogIn() {
     username: '',
     password: '',
   });
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +20,6 @@ function LogIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
 
     fetch("http://127.0.0.1:5000/auth/login", {
       method: "POST",
@@ -35,19 +35,20 @@ function LogIn() {
       return response.json();
     })
     .then((responseData) => {
-      const access = responseData.tokens.access
-      console.log(access, "hellow world");
-      Cookies.set("access", access)
-       // Log response data to check
+      const access = responseData.tokens.access;
+      Cookies.set("access", access);
+
       // Clear the form after successful login
       setData({
         username: '',
         password: '',
       });
-      
-      // Display an alert message
+
+      // Redirect to Home/Towing Company page upon successful login
+      navigate('/home'); // or navigate('/towingcompany');
+
+      // Display an alert message (optional)
       alert("Login successful!");
-      // Handle login success (e.g., redirect to dashboard)
     })
     .catch((error) => {
       console.error('There was a problem with the fetch operation:', error);
@@ -59,6 +60,7 @@ function LogIn() {
     <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: '#dcdcdc' }}>
       <div style={{ width: '300px', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', background: 'white' }}>
         <Form onSubmit={handleSubmit}>
+          <h1 style={{ color: '#ff0000', fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>For Towing Companies Only</h1>
           <Form.Group className="mb-3" controlId="formBasicUserName">
             <Form.Label>Username</Form.Label>
             <Form.Control type="text" name="username" value={data.username} onChange={handleInputChange} placeholder="Username" />
@@ -69,13 +71,8 @@ function LogIn() {
             <Form.Control type="password" name="password" value={data.password} onChange={handleInputChange} placeholder="Password" />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Log In
-          </Button>
+          <Button variant="primary" type="submit">Log In</Button>
         </Form>
-        <div style={{ marginTop: '10px', textAlign: 'center' }}>
-          <p>Don't have an account? <a href="/SignUp">Sign Up</a></p> {/* Ensure proper route for SignUp page */}
-        </div>
       </div>
     </Container>
   );
