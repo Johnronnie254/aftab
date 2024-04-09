@@ -6,7 +6,8 @@ import Query from './assets/Query';
 //import Payment from './assets/Payment';
 import LogIn from './assets/LogIn';
 import SignUp from './assets/SignUp';
-import Payment from './assets/PaymentPage'
+//import Payment from './assets/PaymentPage'
+import TowingCompany from './assets/TowingCompany'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -24,7 +25,8 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/search" element={<Search />} />
               <Route path="/query" element={<Query />} />
-              <Route path="/payment" element={<Payment />} />
+              <Route path="/towingcompany" element={<TowingCompany />} />
+              
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<LogIn />} />
             </>

@@ -33,7 +33,7 @@ export default function TowingCompany(){
         towing_company: car.towing_company,
         towing_email: car.towing_email,
     };
-        fetch("http://127.0.0.1:5000/pleadquery", {
+        fetch("http://127.0.0.1:5000/addvehicle", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

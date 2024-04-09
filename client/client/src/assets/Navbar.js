@@ -17,13 +17,15 @@ function NavBar() {
             (
             <Nav className="me-auto">
             <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/search">Search</Nav.Link>
-            <Nav.Link href="/query">Query</Nav.Link>
+            <Nav.Link href="/towingcompany">Towing Company</Nav.Link>
+            
            
             </Nav>
             ): (
             <Nav className="me-auto">
             <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/search">Search</Nav.Link>
+            <Nav.Link href="/query">Query</Nav.Link>
             <Nav.Link href="/signup">Sign Up</Nav.Link>
             <Nav.Link href="/login">Log In</Nav.Link>
             </Nav>
