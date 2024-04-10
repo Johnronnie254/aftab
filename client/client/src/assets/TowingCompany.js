@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
@@ -19,6 +19,22 @@ export default function TowingCompany() {
     const [currentPage, setCurrentPage] = useState(1);
     const carsPerPage = 10;
 
+    useEffect(() => {
+        // Fetch vehicles from backend when component mounts
+        fetchVehicles();
+    }, []);
+
+    const fetchVehicles = () => {
+        fetch("http://127.0.0.1:5000/vehicles")
+            .then(response => response.json())
+            .then(data => {
+                setVehicles(data);
+            })
+            .catch(error => {
+                console.error('Error fetching vehicles:', error);
+            });
+    };
+
     const handleInput = (e) => {
         const { name, value } = e.target;
         setCar({
@@ -38,7 +54,7 @@ export default function TowingCompany() {
         })
         .then(response => response.json())
         .then(data => {
-            setVehicles([...vehicles, data]);
+            setVehicles([...vehicles, data]); // Update frontend state with new vehicle
             setCar({
                 id: '',
                 plate_number: '',
